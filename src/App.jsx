@@ -1,18 +1,11 @@
-import NavBar from "../components/layout/NavBar"
+import { RouterProvider } from "react-router";
 
-
-function App() {
-
+import router from "./routes/router";
+import Layout from "./components/layout/Layout";
+export default function App() {
   return (
-    <>
-    <NavBar>
-
-     <h1>bonjour
-
-     </h1>
-    </NavBar>
-    </>
-  )
+    <RouterProvider router={router}>
+      <Layout />
+    </RouterProvider>
+  );
 }
-
-export default App

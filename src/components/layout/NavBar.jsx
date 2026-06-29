@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,16 +21,16 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 bg-[#0F172B]/95 backdrop-blur-xl border-b border-white/5">
       <div className="max-w-[1280px] mx-auto px-6">
         <div className="flex items-center justify-between h-20">
-          <Link to="/" className="flex items-center gap-3">
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-[#8B5CF6] via-[#A855F7] to-[#C27AFF] shadow-[0_0_25px_rgba(194,122,255,0.45)]">
-              <span className="text-white font-bold text-sm">A</span>
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="flex items-center justify-center w-12 h-12 rounded-[14px] bg-gradient-to-b from-[#A855F7] to-[#2563EB] shadow-[0_8px_20px_-4px_rgba(168,85,247,0.4)]">
+              <span className="text-white font-black text-xl">A</span>
             </div>
 
-            <span className="text-[22px] font-bold tracking-wide text-[#F1F5F9]">
-              AniVerse
+            <span className="text-[22px] font-bold tracking-wide">
+              <span className="text-[#3B82F6]">Ani</span>
+              <span className="text-white">Verse</span>
             </span>
           </Link>
-
           <div className="hidden lg:flex items-center gap-2">
             {navLinks.map((link) => (
               <Link

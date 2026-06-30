@@ -21,7 +21,7 @@ export default function Hero  () {
         </h1>
         
         <p className="text-gray-400 text-sm md:text-base mb-8 max-w-lg mx-auto leading-relaxed">
-          Découvrez des milliers d'animes, suivez votre visionnage, attribuez des notes et construisez la bibliothèque de vos rêves avec AniVerse.
+          Découvrez des milliers d'animes, suivez votre visionnage, attri des notes et construisez la bibliothèque de vos rêves avec AniVerse.
         </p>
         
       <Link 

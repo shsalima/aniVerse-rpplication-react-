@@ -1,8 +1,9 @@
 
 import { createBrowserRouter } from "react-router";
-import Home from "../pages/Home";
+// import Home from "../pages/LandingPage";
 import Layout from "../components/layout/Layout";
 import Anime from "../pages/Anime";
+import LandingPage from "../pages/LandingPage";
 
 
 
@@ -11,7 +12,7 @@ const router = createBrowserRouter([
     path: "/",
     element: 
     <Layout >
-        <Home/>
+        <LandingPage/>
         
     </Layout>
   },

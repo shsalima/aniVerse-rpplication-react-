@@ -42,6 +42,7 @@ export default function LandingPage() {
         loading={seasonalLoading}
         error={seasonalError}
         viewAllLink="/anime"
+        
       />
     </div>
   );

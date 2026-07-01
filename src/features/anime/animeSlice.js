@@ -5,12 +5,14 @@ import api from "../../services/animeApi";
 
 export const fetchTrendingAnimes= createAsyncThunk(
     "anime/fetchTrendingAnimes",
-    async(_NEVER,{rejectWithValue})=>{
+    async(_,{rejectWithValue})=>{
         try{
             const response =await api.get("/top/anime"
               
             )
             return response.data.data
+            // console.log("test ",response.data.data);
+            
         }catch(error){
             return rejectWithValue(error.message)
         }
@@ -37,7 +39,7 @@ export const fetchAnimeList=createAsyncThunk(
     "anime/fetchAnimeList",
     async(
         {
-            page=1,
+          
             search="",
             type="",
             genre="",
@@ -48,7 +50,6 @@ export const fetchAnimeList=createAsyncThunk(
         try{
             const response=await api.get("/anime",{
                 params:{
-                    page,
                     q:search,
                     type,
                     genres:genre,
@@ -79,8 +80,7 @@ const initialState ={
     animeLoading:false,
     animeError:null,
 
-    currentPage:1,
-    lastPage:1,
+  
 
     search:"",
     type:"",
@@ -93,7 +93,19 @@ const initialState ={
 const animeSlice=createSlice({
     name:"anime",
     initialState,
-    reducers: {},
+    reducers: {
+    setSearch(state, action) {
+        state.search = action.payload;
+    },
+
+    setType(state, action) {
+        state.type = action.payload;
+    },
+
+    setGenre(state, action) {
+        state.genre = action.payload;
+    },
+},
 
     extraReducers: (builder)=>{
         builder
@@ -139,9 +151,8 @@ const animeSlice=createSlice({
 
             .addCase(fetchAnimeList.fulfilled,(state,action)=>{
                 state.animeLoading=false;
-                state.animeList=action.payload.data
-                state.currentPage=action.payload.pagination.current_page
-                state.lastPage=action.payload.pagination.last_visible_page
+                state.animeList=action.payload
+          
             })
 
             .addCase(fetchAnimeList.rejected, (state, action) => {
@@ -155,4 +166,5 @@ const animeSlice=createSlice({
 })
 
 
+export const {setSearch,setType,setGenre} = animeSlice.actions;
 export default animeSlice.reducer

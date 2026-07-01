@@ -33,6 +33,36 @@ export const fetchSeasonalAnimes =createAsyncThunk(
 )
 
 
+export const fetchAnimeList=createAsyncThunk(
+    "anime/fetchAnimeList",
+    async(
+        {
+            page=1,
+            search="",
+            type="",
+            genre="",
+
+        },
+        {rejectWithValue}
+    )=>{
+        try{
+            const response=await api.get("/anime",{
+                params:{
+                    page,
+                    q:search,
+                    type,
+                    genres:genre,
+
+                }
+            })
+            return response.data
+        }catch(error){
+            return rejectWithValue(error.message)
+        }
+    }
+)
+
+
 
 
 
@@ -43,8 +73,21 @@ const initialState ={
 
     seasonalAnimes:[],
     seasonalLoading:false,
-    seasonalError:null
-}
+    seasonalError:null,
+
+    animeList:[],
+    animeLoading:false,
+    animeError:null,
+
+    currentPage:1,
+    lastPage:1,
+
+    search:"",
+    type:"",
+    genre:"",
+
+};
+
 
 
 const animeSlice=createSlice({
@@ -85,7 +128,26 @@ const animeSlice=createSlice({
             .addCase(fetchSeasonalAnimes.rejected, (state, action) => {
                state.seasonalLoading = false;
                state.seasonalError = action.payload;
-            });
+            })
+
+            // ****************************
+            .addCase(fetchAnimeList.pending,(state)=>{
+                state.animeLoading = true;
+                state.animeError = null;
+
+            })
+
+            .addCase(fetchAnimeList.fulfilled,(state,action)=>{
+                state.animeLoading=false;
+                state.animeList=action.payload.data
+                state.currentPage=action.payload.pagination.current_page
+                state.lastPage=action.payload.pagination.last_visible_page
+            })
+
+            .addCase(fetchAnimeList.rejected, (state, action) => {
+                state.animeLoading = false;
+                state.animeError = action.payload;
+            })
 
 
 

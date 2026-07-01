@@ -1,7 +1,10 @@
+import AnimeHeader from "../components/Anime/AnimeHeader";
+
 export default function Anime() {
     return (    
-        <h1 className="text-4xl font-bold">
-            Anime Page
-        </h1>
+        <div className="container mx-auto px-4">
+            <AnimeHeader/>
+
+        </div>
     )
 }

@@ -28,12 +28,14 @@ export const fetchSeasonalAnimes = createAsyncThunk(
 
 export const fetchAnimeList = createAsyncThunk(
   "anime/fetchAnimeList",
-  async ({ search , type , genre }, { rejectWithValue }) => {
+  async ({ search, type, genre }, { rejectWithValue }) => {
+   
+
     try {
       const response = await api.get("/anime", {
         params: {
           q: search,
-          type:type,
+          type: type,
           genres: genre,
         },
       });

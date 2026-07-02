@@ -15,40 +15,26 @@ import {
 export default function Anime() {
   const dispatch = useDispatch();
 
-  const {
-    animeList,
-    animeLoading,
-    animeError,
-    search,
-    type,
-    genre,
-  } = useSelector((state) => state.anime);
-   console.log(animeList);
-   
-  useEffect(() => {
- 
-      dispatch(
-        fetchAnimeList({
-          search,
-          type,
-          genre,
-        })
-      );
-    },[]);
+  const { animeList, animeLoading, animeError, search, type, genre } =
+    useSelector((state) => state.anime);
 
-   
+  useEffect(() => {
+    dispatch(
+      fetchAnimeList({
+        search,
+        type,
+        genre,
+      }),
+    );
+  }, []);
 
   return (
     <div className="container mx-auto px-4">
       <AnimeHeader />
 
-      <SearchFilter/>
+      <SearchFilter />
 
-      <AnimeGrid
-        animes={animeList}
-        loading={animeLoading}
-        error={animeError}
-      />
+      <AnimeGrid animes={animeList} loading={animeLoading} error={animeError} />
     </div>
   );
 }

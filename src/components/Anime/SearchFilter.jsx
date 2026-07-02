@@ -1,34 +1,37 @@
 import { Search } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { setGenre, setSearch, setType } from "../../features/anime/animeSlice";
+import {
+  fetchAnimeList,
+  setGenre,
+  setSearch,
+  setType,
+} from "../../features/anime/animeSlice";
+import { useEffect } from "react";
 
 export default function SearchFilter() {
+  const dispatch = useDispatch();
 
-    const dispatch=useDispatch()
+  const { search, type, genre } = useSelector((state) => state.anime);
 
-    const {search,type,genre}=useSelector((state)=>state.anime)
+  useEffect(() => {
+    dispatch(fetchAnimeList({ search, type, genre }));
+  }, [search, type, genre]);
 
-    const onSearchChange=(e)=>{
-        dispatch(setSearch(e.target.value))
-    }
+  const onSearchChange = (e) => {
+    dispatch(setSearch(e.target.value));
+  };
 
-    const onTypeChange=(e)=>{
-        dispatch(setType(e.target.value))
-    }
+  const onTypeChange = (e) => {
+    dispatch(setType(e.target.value));
+  };
 
-    const onGenreChange=(e)=>{
-        dispatch(setGenre(e.target.value))
-    }
-
-
-
-
+  const onGenreChange = (e) => {
+    dispatch(setGenre(e.target.value));
+  };
 
   return (
     <div className="bg-[#111827] border border-gray-800 rounded-2xl p-5 mb-10">
       <div className="flex flex-col lg:flex-row gap-4">
-
-        
         <div className="relative flex-1">
           <Search
             className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
@@ -44,7 +47,6 @@ export default function SearchFilter() {
           />
         </div>
 
-       
         <select
           value={type}
           onChange={onTypeChange}
@@ -57,7 +59,6 @@ export default function SearchFilter() {
           <option value="special">Special</option>
         </select>
 
-        
         <select
           value={genre}
           onChange={onGenreChange}
@@ -70,7 +71,6 @@ export default function SearchFilter() {
           <option value="8">Drama</option>
           <option value="10">Fantasy</option>
         </select>
-
       </div>
     </div>
   );

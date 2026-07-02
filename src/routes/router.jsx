@@ -7,6 +7,7 @@ import LandingPage from "../pages/LandingPage";
 import Characters from "../pages/Characters";
 import CharacterDetails from "../pages/CharacterDetails";
 import AnimeDetails from "../pages/AnimeDetails";
+import Favorites from "../pages/Favorites";
 
 
 
@@ -48,6 +49,14 @@ const router = createBrowserRouter([
     element: 
     <Layout >
         <CharacterDetails/>
+        
+    </Layout>
+  },
+  {
+    path: "/favorites",
+    element: 
+    <Layout >
+        <Favorites/>
         
     </Layout>
   },

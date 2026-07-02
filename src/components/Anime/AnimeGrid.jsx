@@ -9,6 +9,8 @@ export default function AnimeGrid({
   loading,
   error,
   viewAllLink,
+  onDelete,
+   showDelete 
 }) {
   if (loading) {
     return (
@@ -60,7 +62,7 @@ export default function AnimeGrid({
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {animes &&
-          animes.map((anime) => <AnimeCard key={anime.mal_id} anime={anime} />)}
+          animes.map((anime) => <AnimeCard key={anime.mal_id} anime={anime} onDelete={onDelete} showDelete={showDelete} />)}
       </div>
     </section>
   );

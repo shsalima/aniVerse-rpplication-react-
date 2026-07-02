@@ -1,14 +1,12 @@
 {
   "favorites": [
     {
-      "mal_id": 49233,
-      "title": "Youjo Senki II",
-      "image": "https://cdn.myanimelist.net/images/anime/1917/158371l.jpg",
-      "score": null,
-      "id": "YkdHGDECTVE"
+      "mal_id": 61316,
+      "title": "Re:Zero kara Hajimeru Isekai Seikatsu 4th Season",
+      "image": "https://cdn.myanimelist.net/images/anime/1540/155824l.jpg",
+      "score": 9.19,
+      "id": "5tMJ8skJ-yY"
     }
   ],
-  "library": [],
-  "notes": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

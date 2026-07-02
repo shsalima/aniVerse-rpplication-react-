@@ -1,8 +1,8 @@
-import { Calendar, Star, Tv } from 'lucide-react';
+import { Calendar, Star, Tv,Trash2  } from 'lucide-react';
 import React from 'react';
 import { Link } from 'react-router';
 
-export default function AnimeCard  ({ anime }) {
+export default function AnimeCard  ({ anime,onDelete, showDelete  }) {
     if (!anime) return null;
   const {
     mal_id,
@@ -22,7 +22,7 @@ export default function AnimeCard  ({ anime }) {
      
       <div className="relative aspect-[3/4] w-full overflow-hidden">
         <img 
-          src={images?.jpg?.large_image_url || images?.jpg?.image_url} 
+          src={images?.jpg?.large_image_url || images?.jpg?.image_url || anime.image} 
           alt={title}
           className="w-full h-full object-cover group-hover:opacity-80 transition-opacity"
           loading="lazy"
@@ -40,6 +40,18 @@ export default function AnimeCard  ({ anime }) {
         <div className="absolute top-3 left-20 bg-black/60 text-white font-medium text-xs px-2 py-1 rounded backdrop-blur-sm">
           {type || 'TV'}
         </div>
+        {showDelete &&
+
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              onDelete(anime.id);
+            }}
+            className="absolute top-3 right-3 text-blue-500 hover:text-red-700 transition duration-300"
+          >
+            <Trash2 size={20} />
+          </button>
+       }
       </div>
 
       

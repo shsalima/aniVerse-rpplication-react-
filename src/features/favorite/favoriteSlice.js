@@ -1,9 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import favoriteApi from "../../services/favoriteApi";
 
-// ======================
-// GET Favorites
-// ======================
 
 export const fetchFavorites = createAsyncThunk(
   "favorite/fetchFavorites",
@@ -22,8 +19,28 @@ export const addFavorite = createAsyncThunk(
   "favorite/addFavorite",
   async (anime, { rejectWithValue }) => {
     try {
+         const { data } = await favoriteApi.get("/favorites");   
+         const exist = data.find(
+            (item) => item.mal_id === anime.mal_id
+        );
+        if (exist) {
+        return exist;
+      }
       const response = await favoriteApi.post("/favorites", anime);
       return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+
+export const deleteFavorite = createAsyncThunk(
+  "favorite/deleteFavorite",
+  async (id, { rejectWithValue }) => {
+    try {
+      await favoriteApi.delete(`/favorites/${id}`);
+      return id;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -70,13 +87,35 @@ const favoriteSlice = createSlice({
 
       .addCase(addFavorite.fulfilled, (state, action) => {
         state.loading = false;
-        state.favorites.push(action.payload);
+        if (action.payload) {
+            state.favorites.push(action.payload);
+        }
       })
 
       .addCase(addFavorite.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+
+    //   ********************
+
+
+        .addCase(deleteFavorite.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        })
+
+        .addCase(deleteFavorite.fulfilled, (state, action) => {
+            state.loading = false;
+            state.favorites = state.favorites.filter(
+                (favorite) => favorite.id !== action.payload
+            );
+        })
+
+        .addCase(deleteFavorite.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        })
   },
 });
 

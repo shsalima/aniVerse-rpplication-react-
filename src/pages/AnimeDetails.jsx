@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
-import { ArrowLeft, Star, Calendar, Tv } from "lucide-react";
+import { ArrowLeft, Star, Calendar, Tv, Heart } from "lucide-react";
 
 import { fetchAnimeDetails } from "../features/anime/animeSlice";
 import { addFavorite } from "../features/favorite/favoriteSlice";
@@ -11,23 +11,22 @@ export default function AnimeDetails() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { animeDetails, detailsLoading, detailsError } = useSelector((state) => state.anime);
+  const { animeDetails, detailsLoading, detailsError } = useSelector((state) => state.anime );
 
   useEffect(() => {
     dispatch(fetchAnimeDetails(id));
-  }, [ id]);
+  }, [dispatch, id]);
 
-  const handleAddFavorite =()=>{
+  const handleAddFavorite = () => {
     dispatch(
-        addFavorite({
-            mal_id:animeDetails.mal_id,
-            title: animeDetails.title,
-            image: animeDetails.images.jpg.large_image_url,
-            score: animeDetails.score,
-
-        })
-    )
-  }
+      addFavorite({
+        mal_id: animeDetails.mal_id,
+        title: animeDetails.title,
+        image: animeDetails.images.jpg.large_image_url,
+        score: animeDetails.score,
+      })
+    );
+  };
 
   if (detailsLoading) {
     return (
@@ -51,8 +50,7 @@ export default function AnimeDetails() {
 
   return (
     <div className="container mx-auto px-4 py-10">
-
-      
+   
       <button
         onClick={() => navigate("/anime")}
         className="flex items-center gap-2 text-white hover:text-indigo-400 transition mb-8"
@@ -61,9 +59,20 @@ export default function AnimeDetails() {
         Retour
       </button>
 
-      <div className="bg-[#111827] rounded-2xl p-6 flex flex-col lg:flex-row gap-8">
+  
+      <div className="relative bg-[#111827] rounded-2xl p-6 flex flex-col lg:flex-row gap-8">
 
-        
+        <button
+        onClick={handleAddFavorite}
+        className="absolute top-5 right-5 text-blue-500 hover:text-blue-600 transition"
+        >
+        <Heart
+            fill="currentColor"
+            className="text-blue-500 hover:text-blue-600 transition"
+        />
+        </button>
+
+      
         <div className="flex-shrink-0">
           <img
             src={animeDetails.images.jpg.large_image_url}
@@ -72,16 +81,14 @@ export default function AnimeDetails() {
           />
         </div>
 
-        
+      
         <div className="flex-1">
-
           <h1 className="text-4xl font-bold text-white mb-6">
             {animeDetails.title}
           </h1>
 
          
           <div className="flex flex-wrap gap-6 mb-6">
-
             <div className="flex items-center gap-2 text-yellow-400">
               <Star size={18} />
               <span>{animeDetails.score ?? "N/A"}</span>
@@ -100,10 +107,8 @@ export default function AnimeDetails() {
               <Tv size={18} />
               <span>{animeDetails.episodes ?? "?"} épisodes</span>
             </div>
-
           </div>
 
-          
           <h2 className="text-xl text-indigo-400 font-semibold mb-3">
             Synopsis
           </h2>
@@ -112,7 +117,7 @@ export default function AnimeDetails() {
             {animeDetails.synopsis || "Aucun synopsis disponible."}
           </p>
 
-          
+         
           <h2 className="text-xl text-indigo-400 font-semibold mb-3">
             Genres
           </h2>
@@ -128,11 +133,12 @@ export default function AnimeDetails() {
             ))}
           </div>
 
+        
           <h2 className="text-xl text-indigo-400 font-semibold mb-3">
             Studios
           </h2>
 
-          <div className="flex flex-wrap gap-3 mb-8">
+          <div className="flex flex-wrap gap-3">
             {animeDetails.studios.map((studio) => (
               <span
                 key={studio.mal_id}
@@ -142,15 +148,6 @@ export default function AnimeDetails() {
               </span>
             ))}
           </div>
-          <button
-            onClick={handleAddFavorite}
-            className="mt-6 px-5 py-3 bg-red-600 hover:bg-red-700 rounded-lg text-white transition"
-            >
-             Ajouter aux favoris
-            </button>
-
-         
-
         </div>
       </div>
     </div>

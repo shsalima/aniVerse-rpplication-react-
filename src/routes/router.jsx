@@ -6,6 +6,7 @@ import Anime from "../pages/Anime";
 import LandingPage from "../pages/LandingPage";
 import Characters from "../pages/Characters";
 import CharacterDetails from "../pages/CharacterDetails";
+import AnimeDetails from "../pages/AnimeDetails";
 
 
 
@@ -23,6 +24,14 @@ const router = createBrowserRouter([
     element: 
     <Layout >
         <Anime/>
+        
+    </Layout>
+  },
+  {
+    path: "/anime/:id",
+    element: 
+    <Layout >
+        <AnimeDetails/>
         
     </Layout>
   },

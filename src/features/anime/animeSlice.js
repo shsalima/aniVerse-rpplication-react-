@@ -26,6 +26,19 @@ export const fetchSeasonalAnimes = createAsyncThunk(
   },
 );
 
+export const fetchAnimeDetails = createAsyncThunk(
+  "anime/fetchAnimeDetails",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await api.get(`/anime/${id}/full`);
+
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const fetchAnimeList = createAsyncThunk(
   "anime/fetchAnimeList",
   async ({ search, type, genre }, { rejectWithValue }) => {
@@ -55,6 +68,10 @@ const initialState = {
   seasonalAnimes: [],
   seasonalLoading: false,
   seasonalError: null,
+
+  animeDetails: null,
+ detailsLoading: false,
+ detailsError: null,
 
   animeList: [],
   animeLoading: false,
@@ -115,6 +132,23 @@ const animeSlice = createSlice({
         state.seasonalLoading = false;
         state.seasonalError = action.payload;
       })
+
+      // *************
+
+      .addCase(fetchAnimeDetails.pending, (state) => {
+          state.detailsLoading = true;
+          state.detailsError = null;
+      })
+
+      .addCase(fetchAnimeDetails.fulfilled, (state, action) => {
+          state.detailsLoading = false;
+          state.animeDetails = action.payload;
+      })
+
+      .addCase(fetchAnimeDetails.rejected, (state, action) => {
+          state.detailsLoading = false;
+          state.detailsError = action.payload;
+})
 
       // ****************************
       .addCase(fetchAnimeList.pending, (state) => {

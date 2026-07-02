@@ -8,11 +8,11 @@ import CharacterGrid from "../components/Characters/CharacterGrid";
 
 export default function Characters(){
     const dispatch=useDispatch()
-    const{characters,loading,error}=useSelector((state)=>state.character)
+    const{characters,loading,error,search}=useSelector((state)=>state.character)
 
     useEffect(()=>{
-        dispatch(fetchCharacters())
-    },[])
+        dispatch(fetchCharacters(search))
+    },[search])
 
     return(
         <div className="container mx-auto px-4">

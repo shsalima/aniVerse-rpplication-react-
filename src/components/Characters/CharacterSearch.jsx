@@ -1,8 +1,18 @@
 
 
 import { Search } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchCharacter } from "../../features/character/characterSlice";
 
 export default function CharacterSearch() {
+
+    const dispatch=useDispatch()
+    const {search}=useSelector((state)=>state.character)
+
+    const onChangeSearch=(e)=>{
+        dispatch(setSearchCharacter(e.target.value))
+    }
+
   return (
     <div className="bg-[#111827] border border-gray-800 rounded-2xl p-5 mb-10">
       <div className="flex flex-col md:flex-row gap-4">
@@ -14,6 +24,9 @@ export default function CharacterSearch() {
 
           <input
             type="text"
+            value={search}
+            onChange={onChangeSearch}
+
             placeholder="Rechercher un personnage (ex: Levi Ackerman, Goku)..."
             className="w-full h-12 pl-12 pr-4 rounded-xl bg-[#0F172A] border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />

@@ -1,13 +1,18 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../services/animeApi";
+import { setSearch } from "../anime/animeSlice";
 
 
 export const fetchCharacters=createAsyncThunk(
     "character/fetchCharacters",
-    async(_,{rejectWithValue})=>{
+    async(search,{rejectWithValue})=>{
         try{
-            const response=await api.get("/characters")
+            const response=await api.get("/characters",{
+                params:{
+                    q:search,
+                }
+            })
             return response.data.data
         }catch(error){
             return rejectWithValue(error.message)
@@ -18,17 +23,27 @@ export const fetchCharacters=createAsyncThunk(
 
 
 
+
+
+
+
 const initialState={
     characters:[],
     loading:false,
-    error:null
-}
+    error:null,
 
+    search:"",
+}
 
 const characherSlice=createSlice({
     name:"character",
     initialState,
-    reducers:{},
+    reducers:{
+        setSearchCharacter(state,action){
+            state.search=action.payload
+
+        }
+    },
     extraReducers:(builder)=>{
         builder
             .addCase(fetchCharacters.pending,(state)=>{
@@ -48,3 +63,4 @@ const characherSlice=createSlice({
 
 })
 export default characherSlice.reducer
+export const {setSearchCharacter}= characherSlice.actions

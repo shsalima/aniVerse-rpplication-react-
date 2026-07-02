@@ -4,6 +4,7 @@ import { createBrowserRouter } from "react-router";
 import Layout from "../components/layout/Layout";
 import Anime from "../pages/Anime";
 import LandingPage from "../pages/LandingPage";
+import Characters from "../pages/Characters";
 
 
 
@@ -21,6 +22,14 @@ const router = createBrowserRouter([
     element: 
     <Layout >
         <Anime/>
+        
+    </Layout>
+  },
+  {
+    path: "/characters",
+    element: 
+    <Layout >
+        <Characters/>
         
     </Layout>
   },

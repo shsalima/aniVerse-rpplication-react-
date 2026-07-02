@@ -1,13 +1,29 @@
 import { Search } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { setGenre, setSearch, setType } from "../../features/anime/animeSlice";
 
-export default function SearchFilter({
-  search,
-  type,
-  genre,
-  onSearchChange,
-  onTypeChange,
-  onGenreChange,
-}) {
+export default function SearchFilter() {
+
+    const dispatch=useDispatch()
+
+    const {search,type,genre}=useSelector((state)=>state.anime)
+
+    const onSearchChange=(e)=>{
+        dispatch(setSearch(e.target.value))
+    }
+
+    const onTypeChange=(e)=>{
+        dispatch(setType(e.target.value))
+    }
+
+    const onGenreChange=(e)=>{
+        dispatch(setGenre(e.target.value))
+    }
+
+
+
+
+
   return (
     <div className="bg-[#111827] border border-gray-800 rounded-2xl p-5 mb-10">
       <div className="flex flex-col lg:flex-row gap-4">

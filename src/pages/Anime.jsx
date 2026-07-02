@@ -23,12 +23,12 @@ export default function Anime() {
     type,
     genre,
   } = useSelector((state) => state.anime);
-
+   console.log(animeList);
+   
   useEffect(() => {
  
       dispatch(
         fetchAnimeList({
-       
           search,
           type,
           genre,
@@ -42,14 +42,7 @@ export default function Anime() {
     <div className="container mx-auto px-4">
       <AnimeHeader />
 
-      <SearchFilter
-        search={search}
-        type={type}
-        genre={genre}
-        onSearchChange={(e) => dispatch(setSearch(e.target.value))}
-        onTypeChange={(e) => dispatch(setType(e.target.value))}
-        onGenreChange={(e) => dispatch(setGenre(e.target.value))}
-      />
+      <SearchFilter/>
 
       <AnimeGrid
         animes={animeList}

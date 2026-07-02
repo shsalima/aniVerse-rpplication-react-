@@ -1,5 +1,14 @@
 {
-  "favorites": [],
+  "favorites": [
+    {
+      "mal_id": 49233,
+      "title": "Youjo Senki II",
+      "image": "https://cdn.myanimelist.net/images/anime/1917/158371l.jpg",
+      "score": null,
+      "id": "YkdHGDECTVE"
+    }
+  ],
   "library": [],
-  "notes": []
+  "notes": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }

@@ -4,21 +4,30 @@ import { useNavigate, useParams } from "react-router";
 import { ArrowLeft, Star, Calendar, Tv } from "lucide-react";
 
 import { fetchAnimeDetails } from "../features/anime/animeSlice";
+import { addFavorite } from "../features/favorite/favoriteSlice";
 
 export default function AnimeDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const {
-    animeDetails,
-    detailsLoading,
-    detailsError,
-  } = useSelector((state) => state.anime);
+  const { animeDetails, detailsLoading, detailsError } = useSelector((state) => state.anime);
 
   useEffect(() => {
     dispatch(fetchAnimeDetails(id));
-  }, [dispatch, id]);
+  }, [ id]);
+
+  const handleAddFavorite =()=>{
+    dispatch(
+        addFavorite({
+            mal_id:animeDetails.mal_id,
+            title: animeDetails.title,
+            image: animeDetails.images.jpg.large_image_url,
+            score: animeDetails.score,
+
+        })
+    )
+  }
 
   if (detailsLoading) {
     return (
@@ -133,6 +142,12 @@ export default function AnimeDetails() {
               </span>
             ))}
           </div>
+          <button
+            onClick={handleAddFavorite}
+            className="mt-6 px-5 py-3 bg-red-600 hover:bg-red-700 rounded-lg text-white transition"
+            >
+             Ajouter aux favoris
+            </button>
 
          
 

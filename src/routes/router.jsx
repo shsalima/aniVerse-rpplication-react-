@@ -5,6 +5,7 @@ import Layout from "../components/layout/Layout";
 import Anime from "../pages/Anime";
 import LandingPage from "../pages/LandingPage";
 import Characters from "../pages/Characters";
+import CharacterDetails from "../pages/CharacterDetails";
 
 
 
@@ -30,6 +31,14 @@ const router = createBrowserRouter([
     element: 
     <Layout >
         <Characters/>
+        
+    </Layout>
+  },
+  {
+    path: "/characters/:id",
+    element: 
+    <Layout >
+        <CharacterDetails/>
         
     </Layout>
   },

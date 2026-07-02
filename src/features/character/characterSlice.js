@@ -22,6 +22,19 @@ export const fetchCharacters=createAsyncThunk(
 )
 
 
+export const fetchCharacterDetails =createAsyncThunk(
+    "character/fetchCharacterDetails ",
+    async(id,{rejectWithValue})=>{
+        try{
+            const response=await api.get(`/characters/${id}/full`)
+            return response.data.data
+        }catch(error){
+            return rejectWithValue(error.message)
+        }
+    }
+)
+
+
 
 
 
@@ -33,6 +46,10 @@ const initialState={
     error:null,
 
     search:"",
+
+    characterDetails:null,
+    detailsLoading:false,
+    detailsError:null,
 }
 
 const characherSlice=createSlice({
@@ -58,6 +75,21 @@ const characherSlice=createSlice({
                 state.loading=false
                 state.error=action.payload
 
+            })
+
+            // **************
+
+            .addCase(fetchCharacterDetails.pending,(state)=>{
+                state.detailsLoading=true
+                state.detailsError=null
+            })
+            .addCase(fetchCharacterDetails.fulfilled,(state,action)=>{
+                state.detailsLoading=false
+                state.characterDetails=action.payload
+            })
+            .addCase(fetchCharacterDetails.rejected,(state)=>{
+                state.detailsLoading=false
+                state.detailsError=action.payload
             })
     }
 
